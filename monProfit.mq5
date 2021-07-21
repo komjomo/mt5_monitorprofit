@@ -8,7 +8,7 @@
 #property version   "1.00"
 
 #include <Trade/Trade.mqh>
-#include <JPOSClass.mqh>
+#include <Trade/PositionInfo.mqh>
 
 input double percent_stopout = 8;   // stopout percent
 input bool en_stopout = false;      // Enable stopout control
@@ -45,13 +45,36 @@ void OnTick() {
    double percent_cal = profit * 100 / baln * -1;        // calculate percent of loss
 
    printf("Balance : %.2f / Profit : %.2f = %.2f%%", equity, profit, percent_cal);
-   
+
    if( percent_cal > percent_stopout && en_stopout == true) {
       Print("Stopout action!!!");
+      CPositionInfo pos;
+      CTrade trd;
+      int pos_id[100];
+      
+      
+      for(int i = 0; i < 100; i++) {      // init value
+         pos_id[i] = 0;
+      }
 
-      JPOSClass pos;
-      pos.closeAllPosSymbol(Symbol());
-      Print("Close All Position(s).");
+      ///////////// get id of position to array
+      for(int i = 0; i < PositionsTotal(); i++) {
+
+
+         if(pos.SelectByIndex(i)) {
+            pos_id[i] = pos.Identifier();
+         }
+      }
+
+
+      ///////// close run, close all pos in array
+      for(int i = 0; i < 100; i++) {
+         if(pos_id[i] != 0) {
+            trd.PositionClose(pos_id[i]);
+            Print("closed position id : " + pos_id[i]);
+         }
+      }
+
 
    }
 
