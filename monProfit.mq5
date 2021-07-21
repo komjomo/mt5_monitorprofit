@@ -42,6 +42,8 @@ void OnTick() {
    if( percent_cal > percent_stopout) {
       Print("Stopout action!!!");
    }
+   
+   
 
 
 
