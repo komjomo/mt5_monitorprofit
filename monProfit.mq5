@@ -32,8 +32,10 @@ void OnTick()
 //---
 
    double equity = AccountInfoDouble(ACCOUNT_EQUITY);
+   double profit = AccountInfoDouble(ACCOUNT_PROFIT);
+   printf("Balance : %.2f / Profit : %.2f", equity, profit);
    
-   Print(equity);
+   
    
   }
 //+------------------------------------------------------------------+
