@@ -11,4 +11,7 @@ This code is abount to monitor profit and it can send stopout position when reac
 
 Input 1:
   stopout percent
+Input 2:
+  enable stopout percent
+  
 
